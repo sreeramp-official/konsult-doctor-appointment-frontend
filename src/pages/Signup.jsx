@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 
 const Signup = () => {
     const [role, setRole] = useState("patient");
@@ -146,7 +148,9 @@ const Signup = () => {
                     </div>
                 </form>
                 <p className="mt-10 text-center text-sm text-gray-500">
-                    Already have an account? <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Sign in</a>
+                    Already have an account? <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                        Login
+                    </Link>
                 </p>
             </div>
         </div>
