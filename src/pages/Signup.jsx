@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { IoEye, IoEyeOff } from "react-icons/io5"; // Import eye icons
 
 const Signup = () => {
     const [name, setName] = useState("");
@@ -17,6 +18,8 @@ const Signup = () => {
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false); // State for password visibility
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
     const navigate = useNavigate();
 
     // Phone number validation
@@ -130,7 +133,6 @@ const Signup = () => {
             setLoading(false);
         }
     };
-
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -254,25 +256,43 @@ const Signup = () => {
 
                     <div>
                         <label className="block text-sm font-medium">Password</label>
-                        <input
-                            type="password"
-                            required
-                            value={password}
-                            onChange={(e) => validatePassword(e.target.value)}
-                            className="block w-full rounded-md px-3 py-2 border border-gray-300 focus:outline-indigo-600"
-                        />
+                        <div className="relative">
+                            <input
+                                type={showPassword ? "text" : "password"} // Toggle password visibility
+                                required
+                                value={password}
+                                onChange={(e) => validatePassword(e.target.value)}
+                                className="block w-full rounded-md px-3 py-2 border border-gray-300 focus:outline-indigo-600"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)} // Toggle visibility
+                                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 cursor-pointer"
+                            >
+                                {showPassword ? <IoEyeOff /> : <IoEye />} {/* Toggle eye icon */}
+                            </button>
+                        </div>
                         {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
                     </div>
 
                     <div>
                         <label className="block text-sm font-medium">Confirm Password</label>
-                        <input
-                            type="password"
-                            required
-                            value={confirmPassword}
-                            onChange={(e) => validateConfirmPassword(e.target.value)}
-                            className="block w-full rounded-md px-3 py-2 border border-gray-300 focus:outline-indigo-600"
-                        />
+                        <div className="relative">
+                            <input
+                                type={showConfirmPassword ? "text" : "password"} // Toggle confirm password visibility
+                                required
+                                value={confirmPassword}
+                                onChange={(e) => validateConfirmPassword(e.target.value)}
+                                className="block w-full rounded-md px-3 py-2 border border-gray-300 focus:outline-indigo-600"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)} // Toggle visibility
+                                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 cursor-pointer"
+                            >
+                                {showConfirmPassword ? <IoEyeOff /> : <IoEye />} {/* Toggle eye icon */}
+                            </button>
+                        </div>
                         {confirmPasswordError && <p className="text-red-500 text-xs mt-1">{confirmPasswordError}</p>}
                     </div>
 

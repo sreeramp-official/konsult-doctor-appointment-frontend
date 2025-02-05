@@ -1,16 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { IoEye, IoEyeOff } from "react-icons/io5"; // Import eye icons
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const navigate = useNavigate(); // Fix: Added useNavigate for redirection
+    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(""); // Clear previous errors
+        setError("");
 
         // Validate password (at least 6 characters, 1 number, 1 special character)
         const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
@@ -25,16 +27,15 @@ const Login = () => {
                 { headers: { "Content-Type": "application/json" } }
             );
 
-            console.log("Login response:", response.data); // Debug log
+            console.log("Login response:", response.data);
             localStorage.setItem("token", response.data.token);
 
-            // Verify token storage
             const storedToken = localStorage.getItem("token");
             console.log("Stored token:", storedToken);
 
-            navigate("/"); // Redirect to dashboard after successful login
+            navigate("/");
         } catch (err) {
-            console.error("Login error details:", err.response?.data); // Detailed error
+            console.error("Login error details:", err.response?.data);
             setError(err.response?.data?.error || "Login failed. Please try again.");
         }
     };
@@ -77,16 +78,25 @@ const Login = () => {
                                 </Link>
                             </div>
                         </div>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            autoComplete="current-password"
-                            className="mt-2 block w-full rounded-md px-3 py-2 border border-gray-300 focus:outline-indigo-600"
-                        />
+                        <div className="relative mt-2">
+                            <input
+                                id="password"
+                                name="password"
+                                type={showPassword ? "text" : "password"} // Toggle input type
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                autoComplete="current-password"
+                                className="block w-full rounded-md px-3 py-2 border border-gray-300 focus:outline-indigo-600"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 cursor-pointer"
+                            >
+                                {showPassword ? <IoEyeOff /> : <IoEye />} {/* Toggle eye icon */}
+                            </button>
+                        </div>
                         {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
                     </div>
 

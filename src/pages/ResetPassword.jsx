@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { IoEye, IoEyeOff } from "react-icons/io5"; // Import eye icons
 
 function ResetPassword() {
     const [email, setEmail] = useState("");
@@ -11,6 +12,8 @@ function ResetPassword() {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false); // State for new password visibility
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
     const navigate = useNavigate();
 
     const handleSendOTP = async (e) => {
@@ -137,24 +140,44 @@ function ResetPassword() {
 
                     {step === 3 && (
                         <>
-                            <input
-                                type="password"
-                                placeholder="New Password"
-                                value={newPassword}
-                                onChange={(e) => setNewPassword(e.target.value)}
-                                required
-                                disabled={loading}
-                                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            />
-                            <input
-                                type="password"
-                                placeholder="Confirm Password"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                required
-                                disabled={loading}
-                                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showNewPassword ? "text" : "password"} // Toggle new password visibility
+                                    placeholder="New Password"
+                                    value={newPassword}
+                                    onChange={(e) => setNewPassword(e.target.value)}
+                                    required
+                                    disabled={loading}
+                                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowNewPassword(!showNewPassword)} // Toggle visibility
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 cursor-pointer"
+                                >
+                                    {showNewPassword ? <IoEyeOff /> : <IoEye />} {/* Toggle eye icon */}
+                                </button>
+                            </div>
+
+                            <div className="relative">
+                                <input
+                                    type={showConfirmPassword ? "text" : "password"} // Toggle confirm password visibility
+                                    placeholder="Confirm Password"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    required
+                                    disabled={loading}
+                                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)} // Toggle visibility
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 cursor-pointer"
+                                >
+                                    {showConfirmPassword ? <IoEyeOff /> : <IoEye />} {/* Toggle eye icon */}
+                                </button>
+                            </div>
+
                             <button
                                 type="submit"
                                 disabled={loading}
