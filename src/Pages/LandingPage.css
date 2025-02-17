@@ -1,0 +1,39 @@
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    text-align: center;
+    padding-top: 60px; /* To prevent overlap with fixed navbar */
+  }
+  
+  .content {
+    max-width: 500px;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .get-started {
+    padding: 12px 20px;
+    background:#114B5F ;
+    color:white ;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .get-started:hover {
+    transform: scale(1.05);
+  }
+  

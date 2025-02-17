@@ -1,0 +1,37 @@
+.navbar {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #114B5F;
+    padding: 8px 20px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.275);
+    display: flex;
+    gap: 15px;
+    z-index: 1000;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .nav-button {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .nav-button:hover {
+    color: rgb(0, 133, 204);
+  }
+  
+  .nav-button.active {
+    color: #114B5F;
+    background: #E4FDE1;
+  }
+  

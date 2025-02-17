@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+  }
+  
+  body {
+    background: linear-gradient(145deg, #ececec, #cfcfcf);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  .auth-container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .auth-form h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .auth-form input,
+  .auth-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .auth-form button {
+    width: 100%;
+    padding: 12px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .auth-form button:hover {
+    background: #218838;
+  }
+  
+  .auth-form .link {
+    color: #007bff;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .auth-form .link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Add these styles to your existing Auth.css */
+.role-selection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.role-box {
+  padding: 20px;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.role-box:hover {
+  background-color: #f0f8ff;
+  transform: translateY(-2px);
+}
+
+.role-box h3 {
+  margin: 0;
+  color: #007bff;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.link {
+  cursor: pointer;
+  color: #007bff;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #dc3545;
+  text-align: center;
+  margin: 10px 0;
+}
+
+
+.success {
+  color: #28a745;
+  text-align: center;
+  margin: 10px 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
