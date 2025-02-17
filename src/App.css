@@ -249,19 +249,22 @@ body {
 }
 
 /* Content layout */
+
 .doctor-view-content {
   display: flex;
   gap: 20px;
+  width: 100vw;
   margin-top: 10vh;
 }
 
 /* Sidebar styles */
 .sidebar {
-  width: 25%;
+  width: 30vw;
+  margin-left: 5vw;
 }
 
 .search-input {
-  width: 100%;
+  width: 80%;
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -279,6 +282,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width:20vw
 }
 
 .specialty-button {
@@ -300,7 +304,8 @@ body {
 
 /* Doctor Cards */
 .doctor-cards {
-  width: 75%;
+  width: 30vw;
+  height:30vh;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
@@ -360,7 +365,201 @@ body {
   font-size: 18px;
   color: #333;
   text-align: center;
-  width: 50vw;
+
 }
 
 /* Doctor viewing page css ends */
+
+
+/* Slot Selection CSS  Starts*/
+
+/* Styles for SlotSelection component */
+.slot-selection-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+  padding: 24px;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.date-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.date-btn {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+.date-btn.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.time-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.time-btn {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+.time-btn.selected {
+  background-color: #28a745;
+  color: white;
+}
+
+.confirm-btn {
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.confirm-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.confirm-btn:hover {
+  background-color: #0056b3;
+}
+
+
+/* Slot Selection CSS Ends */
+
+
+
+
+
+/* Booking CSS starts */
+/* Styles for Booking component */
+.booking-container {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e4fde1;
+}
+
+.form-container {
+  background-color: #0d3a4e;
+  color: white;
+  padding: 32px;
+  border-radius: 8px;
+  width: auto;
+  height: auto;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.message {
+  margin-bottom: 16px;
+  color: #66bb6a;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.input-field,
+.date-field {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+  background-color: #0d3a4e;
+  color: white;
+  width: 100%;
+  font-size: 0.875rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.input-field:focus,
+.date-field:focus {
+  outline: none;
+  border-color: #e4fde1;
+  background-color: #0c2c3f;
+}
+
+.textarea-field {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+  background-color: #0d3a4e;
+  color: white;
+  width: 100%;
+  height: 80px;
+  font-size: 0.875rem;
+  resize: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.textarea-field:focus {
+  outline: none;
+  border-color: #e4fde1;
+  background-color: #0c2c3f;
+}
+
+.submit-btn {
+  padding: 12px 24px;
+  background-color: #e4fde1;
+  color: #0d3a4e;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background-color: #ffffff;
+  color: #0d3a4e;
+}
+
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Booking CSS Ends */
