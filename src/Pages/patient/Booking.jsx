@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Booking = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    fullName: "",
-    doctor: "",
-    date: "",
-    detail: "",
-  });
-
-  const [message, setMessage] = useState("");
+const Booking = ({ formData, setFormData }) => {
+  const navigate = useNavigate();
+  const [message, setMessage] = React.useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // When the date field is clicked, navigate to the SlotSelection page
+  const handleDateClick = () => {
+    navigate("/patient/slot-selection");
   };
 
   const handleSubmit = async (e) => {
@@ -20,22 +19,14 @@ const Booking = () => {
     try {
       const response = await fetch("http://localhost:5000/api/book-appointment", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
       const data = await response.json();
       if (response.ok) {
         setMessage("Appointment booked successfully!");
-        setFormData({
-          email: "",
-          fullName: "",
-          doctor: "",
-          date: "",
-          detail: "",
-        });
+        // Reset the form (include 'time' if used)
+        setFormData({ email: "", fullName: "", doctor: "", date: "", time: "", detail: "" });
       } else {
         setMessage(data.error || "Failed to book appointment.");
       }
@@ -45,12 +36,12 @@ const Booking = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#E4FDE1]">
-      <div className="bg-[#0D3A4E] text-white p-8 rounded-lg w-[450px] shadow-lg">
-        <h2 className="text-xl font-bold mb-4">Booking Form</h2>
-        {message && <p className="mb-3 text-green-400">{message}</p>}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
+    <div className="booking-container">
+      <div className="form-container">
+        <h2 className="form-title">Booking Form</h2>
+        {message && <p className="message">{message}</p>}
+        <form onSubmit={handleSubmit} className="form">
+          <div className="input-group">
             <input
               type="email"
               name="email"
@@ -58,7 +49,7 @@ const Booking = () => {
               onChange={handleChange}
               placeholder="Enter your email"
               required
-              className="p-2 rounded-md w-full bg-[#0D3A4E] border border-white focus:ring-2 focus:ring-[#E4FDE1]"
+              className="input-field"
             />
             <input
               type="text"
@@ -67,10 +58,10 @@ const Booking = () => {
               onChange={handleChange}
               placeholder="Enter your full name"
               required
-              className="p-2 rounded-md w-full bg-[#0D3A4E] border border-white focus:ring-2 focus:ring-[#E4FDE1]"
+              className="input-field"
             />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="input-group">
             <input
               type="text"
               name="doctor"
@@ -78,15 +69,17 @@ const Booking = () => {
               onChange={handleChange}
               placeholder="Doctor name"
               required
-              className="p-2 rounded-md w-full bg-[#0D3A4E] border border-white focus:ring-2 focus:ring-[#E4FDE1]"
+              className="input-field"
             />
             <input
-              type="date"
+              type="text"
               name="date"
               value={formData.date}
-              onChange={handleChange}
+              onClick={handleDateClick}
+              placeholder="Pick a date"
               required
-              className="p-2 rounded-md w-full bg-[#0D3A4E] border border-white focus:ring-2 focus:ring-[#E4FDE1]"
+              readOnly
+              className="input-field date-field"
             />
           </div>
           <textarea
@@ -94,11 +87,11 @@ const Booking = () => {
             value={formData.detail}
             onChange={handleChange}
             placeholder="Enter detail"
-            className="p-2 rounded-md w-full bg-[#0D3A4E] border border-white focus:ring-2 focus:ring-[#E4FDE1] h-20"
+            className="textarea-field"
           />
           <button
             type="submit"
-            className="bg-[#E4FDE1] text-[#0D3A4E] px-5 py-2 rounded-md w-full font-bold hover:bg-white transition"
+            className="submit-btn"
           >
             BOOK
           </button>
