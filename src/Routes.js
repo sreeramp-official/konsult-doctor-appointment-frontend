@@ -7,16 +7,24 @@ import LoginPage from "./Pages/Auth/LoginPage";
 import RegisterPage from "./Pages/Auth/RegisterPage";
 import ResetPasswordPage from "./Pages/Auth/ResetPasswordPage";
 import DoctorDashboard from "./Pages/doctor/DoctorDashboard";
-import SlotSelection from "./Pages/doctor/SlotSelection";
+import SlotSelection from "./Pages/patient/SlotSelection";
+// import SlotSelection from "./Pages/doctor/SlotSelection";
 import DoctorProfile from "./Pages/doctor/DoctorProfile";
 import PatientDashboard from "./Pages/patient/PatientDashBoard";
 import DoctorViewing from "./Pages/patient/DoctorViewing";
 import Booking from "./Pages/patient/Booking";
 import LandingPage from "./Pages/LandingPage";
-
+import React, { useState } from "react";
 const AppRoutes = () => {
   const { token, role } = useAuth(); // Get user authentication status
-
+  const [formData, setFormData] = useState({
+    email: "",
+    fullName: "",
+    doctor: "",
+    date: "",
+    time: "",
+    detail: "",
+  });
   return (
     <>
       {/* ✅ Navbar should change based on authentication */}
@@ -34,7 +42,7 @@ const AppRoutes = () => {
           <>
            
             <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
-            <Route path="/doctor/slot-selection" element={<SlotSelection />} />
+            {/* <Route path="/doctor/slot-selection" element={<SlotSelection />} /> */}
             <Route path="/doctor/profile" element={<DoctorProfile />} />
           </>
         )}
@@ -45,7 +53,8 @@ const AppRoutes = () => {
             
             <Route path="/patient/dashboard" element={<PatientDashboard />} />
             <Route path="/patient/doctors" element={<DoctorViewing />} />
-            <Route path="/patient/booking" element={<Booking />} />
+            <Route path="/patient/booking" element={<Booking formData={formData} setFormData={setFormData} />} />
+            <Route path="/patient/slot-selection" element={<SlotSelection formData={formData} setFormData={setFormData} />} />
           </>
         )}
       </Routes>
