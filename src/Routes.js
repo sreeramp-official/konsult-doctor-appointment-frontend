@@ -8,7 +8,6 @@ import RegisterPage from "./Pages/Auth/RegisterPage";
 import ResetPasswordPage from "./Pages/Auth/ResetPasswordPage";
 import DoctorDashboard from "./Pages/doctor/DoctorDashboard";
 import SlotSelection from "./Pages/patient/SlotSelection";
-import DSlotSelection from "./Pages/doctor/SlotSelection";
 import DoctorProfile from "./Pages/doctor/DoctorProfile";
 import PatientDashboard from "./Pages/patient/PatientDashBoard";
 import DoctorViewing from "./Pages/patient/DoctorViewing";
@@ -16,6 +15,7 @@ import Booking from "./Pages/patient/Booking";
 import LandingPage from "./Pages/LandingPage";
 import ReviewPage from "./Pages/patient/ReviewPage"; // Adjust path as needed
 import Reschedule from "./Pages/patient/Reschedule";
+import DReschedule from "./Pages/doctor/DReschedule";
 
 import React, { useState } from "react";
 const AppRoutes = () => {
@@ -45,7 +45,7 @@ const AppRoutes = () => {
           <>
            
             <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
-            <Route path="/doctor/slot-selection" element={<DSlotSelection />} />
+            <Route path="/doctor/reschedule/:appointmentId" element={<DReschedule />} />
             <Route path="/doctor/profile" element={<DoctorProfile />} />
           </>
         )}
@@ -58,7 +58,7 @@ const AppRoutes = () => {
             <Route path="/patient/doctors" element={<DoctorViewing />} />
             <Route path="/patient/booking" element={<Booking formData={formData} setFormData={setFormData} />} />
             <Route path="/patient/slot-selection" element={<SlotSelection formData={formData} setFormData={setFormData} />} />
-            <Route path="/patient/reschedule" element={<Reschedule />} />
+            <Route path="/patient/reschedule/:appointmentId" element={<Reschedule />} />
             <Route path="/patient/review" element={<ReviewPage />} />
           </>
         )}
