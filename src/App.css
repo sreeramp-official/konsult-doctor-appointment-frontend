@@ -247,30 +247,40 @@ body {
 
 /* doctor Viewing page css  starts*/
 /* General styles */
+/* Base styles */
+/* Base styles */
 .doctor-view-container {
   background-color: #e4fde1;
   min-height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
+  overflow: hidden;
 }
 
 /* Content layout */
-
 .doctor-view-content {
   display: flex;
   gap: 20px;
-  width: 100vw;
+  width: 100%;
+  max-width: 1200px;
   margin-top: 10vh;
 }
 
 /* Sidebar styles */
 .sidebar {
-  width: 30vw;
-  margin-left: 5vw;
+  width: 30%;
+  min-width: 250px;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .search-input {
-  width: 80%;
-  padding: 10px;
+  width: 100%;
+  padding: 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 16px;
@@ -282,12 +292,12 @@ body {
   box-shadow: 0 0 5px #114b5f;
 }
 
+/* Specialty buttons */
 .specialty-buttons {
   margin-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width:20vw
 }
 
 .specialty-button {
@@ -309,19 +319,23 @@ body {
 
 /* Doctor Cards */
 .doctor-cards {
-  width: 30vw;
-  height:30vh;
+  flex: 1;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
 .doctor-card1 {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: #0d3a4e;
   color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .doctor-name {
@@ -346,7 +360,9 @@ body {
 .doctor-actions {
   margin-top: 10px;
   display: flex;
+  justify-content: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .action-button {
@@ -370,7 +386,80 @@ body {
   font-size: 18px;
   color: #333;
   text-align: center;
+}
 
+/* Responsive styles for tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .doctor-view-container {
+    padding: 10px;
+  }
+
+  .doctor-view-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sidebar {
+    width: 80%;
+    max-width: 400px;
+  }
+
+  .doctor-cards {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .specialty-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .specialty-button {
+    font-size: 14px;
+    padding: 10px;
+    width: auto;
+  }
+}
+
+/* Responsive styles for mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .doctor-view-container {
+    padding: 15px;
+    align-items: flex-start;
+  }
+
+  .doctor-view-content {
+    margin-top: 5vh;
+  }
+
+  .sidebar {
+    width: 90%;
+    max-width: 350px;
+  }
+
+  .doctor-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .doctor-card1 {
+    padding: 15px;
+  }
+
+  .specialty-buttons {
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .specialty-button {
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+  }
 }
 
 /* Doctor viewing page css ends */
