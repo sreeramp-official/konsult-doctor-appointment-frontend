@@ -1,37 +1,99 @@
 .navbar {
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #114B5F;
-    padding: 8px 20px;
-    border-radius: 20px;
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.275);
-    display: flex;
-    gap: 15px;
-    z-index: 1000;
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #114B5F;
+  padding: 8px 20px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.275);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Navigation links container */
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+/* Navigation button styles */
+.nav-button {
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  border-radius: 10px;
+  transition: color 0.3s ease-in-out, background 0.3s ease-in-out;
+}
+
+.nav-button:hover {
+  color: rgb(0, 133, 204);
+}
+
+.nav-button.active {
+  color: #114B5F;
+  background: #E4FDE1;
+}
+
+/* Logout button positioning */
+.logout-button {
+  position: fixed;
+  top: 1em;
+  right: 2em;
+  background: #114B5F;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.3s ease-in-out;
+}
+
+.logout-button:hover {
+  background: #0d3c4d;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .navbar {
+      top: 0;
+      left: 0;
+      transform: none;
+      width: 100%;
+      border-radius: 0;
+      padding: 10px;
+      justify-content: center;
   }
-  
+
   .nav-links {
-    display: flex;
-    gap: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
   }
-  
+
   .nav-button {
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-    font-size: 1.2rem;
-    padding: 5px 10px;
-    border-radius: 10px;
-    transition: color 0.3s ease-in-out;
+      font-size: 1rem;
+      padding: 8px;
   }
-  
-  .nav-button:hover {
-    color: rgb(0, 133, 204);
+
+  /* Show logout button as an icon on mobile */
+  .logout-button {
+      right: 1em;
+      padding: 8px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
   }
-  
-  .nav-button.active {
-    color: #114B5F;
-    background: #E4FDE1;
+
+  .logout-button svg {
+      width: 18px;
+      height: 18px;
   }
-  
+}

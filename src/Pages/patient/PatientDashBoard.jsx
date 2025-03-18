@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 const PatientDashboard = () => {
   const [appointments, setAppointments] = useState([]);
-  const [doctors, setDoctors] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        
+
         const response = await fetch("http://localhost:5000/api/appointments", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
@@ -20,18 +19,9 @@ const PatientDashboard = () => {
       }
     };
 
-    const fetchDoctors = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/doctors");
-        const data = await response.json();
-        setDoctors(data);
-      } catch (error) {
-        console.error("Error fetching doctors:", error);
-      }
-    };
+
 
     fetchAppointments();
-    fetchDoctors();
   }, []);
 
   const handleCancel = async (appointmentId) => {
@@ -54,7 +44,7 @@ const PatientDashboard = () => {
       state: { currentAppointment: appointment }
     });
   };
-  
+
 
   // Format date and time for display.
   const formatDateTime = (dateString, timeString) => {
@@ -91,27 +81,6 @@ const PatientDashboard = () => {
             ))
           ) : (
             <p>No upcoming appointments.</p>
-          )}
-        </div>
-      </div>
-
-      {/* Right Side: Available Doctors */}
-      <div className="right-half">
-        <h2 className="section-title">Available Doctors</h2>
-        <div className="available-doctors-container">
-          {doctors.length > 0 ? (
-            doctors.map((doctor) => (
-              <div key={doctor.doctor_id} className="doctor-card">
-                <div>
-                  <h3>{doctor.doctor_name}</h3>
-                  <p>Specialization: {doctor.specialization}</p>
-                  <p>Clinic: {doctor.clinic_address}</p>
-                </div>
-                <p className="available-text">Available Now</p>
-              </div>
-            ))
-          ) : (
-            <p>No doctors available at the moment.</p>
           )}
         </div>
       </div>

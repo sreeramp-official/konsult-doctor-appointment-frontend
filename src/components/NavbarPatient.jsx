@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import LogoutButton from "./LogoutButton";
-import "./Navbar.css"; 
+import "./Navbar.css";
 
 const NavbarPatient = () => {
   return (
@@ -14,7 +14,7 @@ const NavbarPatient = () => {
         </div>
       </nav>
       {/* Logout Button Outside Navbar */}
-      <LogoutButton />  
+      <LogoutButton />
     </div>
   );
 };
