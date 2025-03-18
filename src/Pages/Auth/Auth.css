@@ -1,87 +1,90 @@
+/* General Styles */
 * {
-    box-sizing: border-box;
-    font-family: "Arial", sans-serif;
-  }
-  
-  body {
-    background: linear-gradient(145deg, #ececec, #cfcfcf);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-  }
-  
-  .auth-container {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
-  }
-  
-  .auth-form h2 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .auth-form input,
-  .auth-form select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .auth-form button {
-    width: 100%;
-    padding: 12px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .auth-form button:hover {
-    background: #218838;
-  }
-  
-  .auth-form .link {
-    color: #007bff;
-    text-align: center;
-    cursor: pointer;
-    display: block;
-    margin-top: 10px;
-  }
-  
-  .auth-form .link:hover {
-    text-decoration: underline;
-  }
-  
-  /* Add these styles to your existing Auth.css */
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+body {
+  background: linear-gradient(145deg, #ececec, #cfcfcf);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Auth Container */
+.auth-container {
+  width: 100%;
+  max-width: 450px;
+  margin-top: 5em;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form */
+.auth-form h2 {
+  text-align: center;
+  color: #333;
+}
+
+.auth-form input,
+.auth-form select,
+.auth-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.auth-form input:focus,
+.auth-form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Register Button */
+.auth-btn {
+  width: 100%;
+  padding: 12px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.auth-btn:hover {
+  background: #218838;
+}
+
+/* Role Selection */
 .role-selection {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  display: flex;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
 .role-box {
-  padding: 20px;
+  flex: 1;
+  padding: 15px;
+  text-align: center;
   border: 2px solid #007bff;
   border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
+  transition: 0.3s ease-in-out;
 }
 
 .role-box:hover {
   background-color: #f0f8ff;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .role-box h3 {
@@ -89,46 +92,34 @@
   color: #007bff;
 }
 
-textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: vertical;
-  min-height: 80px;
-}
-
-.link {
-  cursor: pointer;
-  color: #007bff;
+.login-link {
   text-align: center;
-  margin-top: 10px;
 }
 
-.link:hover {
+/* Links */
+.auth-form .link,
+.login-link span {
+  color: #007bff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.auth-form .link:hover,
+.login-link span:hover {
   text-decoration: underline;
 }
 
+/* Error Message */
 .error {
   color: #dc3545;
   text-align: center;
-  margin: 10px 0;
+  font-size: 14px;
 }
 
+/* Responsive Design */
+@media (max-width: 480px) {
 
-.success {
-  color: #28a745;
-  text-align: center;
-  margin: 10px 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  .role-selection {
+    flex-direction: column;
+  }
 }

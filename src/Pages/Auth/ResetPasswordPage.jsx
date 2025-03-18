@@ -82,11 +82,11 @@ function ResetPasswordPage() {
     <div className="auth-container">
       <form onSubmit={
         step === 1 ? handleSendOTP :
-        step === 2 ? handleVerifyOTP :
-        handlePasswordUpdate
+          step === 2 ? handleVerifyOTP :
+            handlePasswordUpdate
       } className="auth-form">
         <h2>Reset Password</h2>
-        
+
         {error && <p className="error">{error}</p>}
         {success && <p className="success">{success}</p>}
 
@@ -100,7 +100,7 @@ function ResetPasswordPage() {
               required
               disabled={loading}
             />
-            <button type="submit" disabled={loading}>
+            <button type="submit" className="auth-btn" disabled={loading}>
               {loading ? "Sending..." : "Send OTP"}
             </button>
           </>

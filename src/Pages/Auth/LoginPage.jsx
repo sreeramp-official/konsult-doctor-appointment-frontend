@@ -14,7 +14,7 @@ function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/login", 
+      const response = await axios.post("http://localhost:5000/api/login",
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -34,9 +34,9 @@ function LoginPage() {
         {error && <p className="error">{error}</p>}
         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <button type="submit">Login</button>
+        <button className="auth-btn" type="submit">Login</button>
         <p onClick={() => navigate("/reset-password")} className="link">Forgot Password?</p>
-        <p onClick={() => navigate("/register")} className="link">Don't have an account? Register</p>
+        <p className="login-link">Don't have an account? <span onClick={() => navigate("/register")}>Register</span></p>
       </form>
     </div>
   );
