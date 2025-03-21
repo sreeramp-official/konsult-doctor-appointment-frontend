@@ -789,7 +789,7 @@ body {
   max-width: 500px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #114B5F;
+  background-color: #114b5f;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   color: #ffffff;
@@ -828,15 +828,13 @@ body {
   flex-direction: column;
 }
 
-/* Input Container */
-.input-container {
-  display: flex;
-  align-items: center;
-  position: relative;
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
 .form-group input {
-  flex: 1;
   padding: 0.75rem 1rem;
   border: 1px solid #cccccc;
   border-radius: 4px;
@@ -857,29 +855,38 @@ body {
   cursor: not-allowed;
 }
 
-/* Edit Icon */
-.edit-icon {
-  cursor: pointer;
-  position: absolute;
-  right: 10px;
-  width: 20px;
-  height: 20px;
+/* Button Group */
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+/* Edit Button */
+.edit-button {
+  background-color: transparent;
   color: #51cf66;
-  transition: transform 0.2s ease-in-out;
-}
-
-.edit-icon:hover {
-  transform: scale(1.1);
-}
-
-/* Button Styling */
-.update-button {
+  border: 1px solid #51cf66;
   padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.edit-button:hover:not(:disabled) {
+  background-color: #51cf66;
+  color: #ffffff;
+}
+
+/* Update Button */
+.update-button {
   background-color: #51cf66;
   color: #ffffff;
   border: none;
+  padding: 0.75rem 1rem;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -913,7 +920,7 @@ body {
     font-size: 0.9rem;
     padding: 0.5rem 0.75rem;
   }
-  .update-button {
+  .edit-button, .update-button {
     font-size: 0.9rem;
     padding: 0.5rem 0.75rem;
   }

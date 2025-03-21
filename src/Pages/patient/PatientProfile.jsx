@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Pencil } from "lucide-react";
 
 const PatientProfile = () => {
     const [profile, setProfile] = useState({
@@ -8,9 +7,8 @@ const PatientProfile = () => {
         email: "",
         phone_number: "",
     });
-
     const [originalProfile, setOriginalProfile] = useState({});
-    const [editField, setEditField] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -58,7 +56,7 @@ const PatientProfile = () => {
             setOriginalProfile(profile); // Update original profile state
             setSuccess(res.data.message || "Profile updated successfully");
             setIsUpdated(false);
-            setEditField(null); // Disable all editing fields
+            setIsEditing(false);
         } catch (err) {
             setError(err.response?.data?.error || "Failed to update profile");
         }
@@ -72,29 +70,59 @@ const PatientProfile = () => {
             {error && <p className="error-message">{error}</p>}
             {success && <p className="success-message">{success}</p>}
             <form onSubmit={handleSubmit} className="profile-form">
-                {["name", "email", "phone_number"].map((field) => (
-                    <div key={field} className="form-group">
-                        <label htmlFor={field}>{field.replace("_", " ").toUpperCase()}</label>
-                        <div className="input-container">
-                            <input
-                                id={field}
-                                name={field}
-                                type={field === "email" ? "email" : "text"}
-                                value={profile[field]}
-                                onChange={handleChange}
-                                disabled={editField !== field}
-                                required
-                            />
-                            <Pencil
-                                className="edit-icon"
-                                onClick={() => setEditField(field)}
-                            />
-                        </div>
-                    </div>
-                ))}
-                <button type="submit" className={`update-button ${!isUpdated ? "disabled" : ""}`} disabled={!isUpdated}>
-                    Update Profile
-                </button>
+                <div className="form-group">
+                    <label htmlFor="name">NAME</label>
+                    <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        value={profile.name}
+                        onChange={handleChange}
+                        disabled={!isEditing}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">EMAIL</label>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={profile.email}
+                        onChange={handleChange}
+                        disabled={!isEditing}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="phone_number">PHONE NUMBER</label>
+                    <input
+                        id="phone_number"
+                        name="phone_number"
+                        type="text"
+                        value={profile.phone_number}
+                        onChange={handleChange}
+                        disabled={!isEditing}
+                        required
+                    />
+                </div>
+                <div className="button-group">
+                    <button
+                        type="button"
+                        className="edit-button"
+                        onClick={() => setIsEditing(true)}
+                        disabled={isEditing}
+                    >
+                        Edit Profile
+                    </button>
+                    <button
+                        type="submit"
+                        className={`update-button ${!isUpdated ? "disabled" : ""}`}
+                        disabled={!isUpdated}
+                    >
+                        Update Profile
+                    </button>
+                </div>
             </form>
         </div>
     );
