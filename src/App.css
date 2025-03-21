@@ -782,3 +782,139 @@ body {
     flex-direction: column;
   }
 }
+
+/* Patient Profile Section */
+/* Container */
+.patient-profile-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #114B5F;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+}
+
+/* Title */
+.profile-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Error & Success Messages */
+.error-message {
+  color: #ff6b6b;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.success-message {
+  color: #51cf66;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Form Styling */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input Container */
+.input-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.form-group input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #51cf66;
+  box-shadow: 0 0 5px rgba(81, 207, 102, 0.5);
+}
+
+.form-group input:disabled {
+  background-color: #f0f0f0;
+  color: #555;
+  cursor: not-allowed;
+}
+
+/* Edit Icon */
+.edit-icon {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  color: #51cf66;
+  transition: transform 0.2s ease-in-out;
+}
+
+.edit-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Button Styling */
+.update-button {
+  padding: 0.75rem 1rem;
+  background-color: #51cf66;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.update-button.disabled {
+  background-color: #94d3a2;
+  cursor: not-allowed;
+}
+
+.update-button:hover:not(.disabled) {
+  background-color: #40c057;
+}
+
+/* Loading text */
+.loading {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-top: 2rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .patient-profile-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  .profile-title {
+    font-size: 1.5rem;
+  }
+  .form-group input {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+  }
+  .update-button {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+  }
+}

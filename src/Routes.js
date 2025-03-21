@@ -16,6 +16,7 @@ import LandingPage from "./Pages/LandingPage";
 import ReviewPage from "./Pages/patient/ReviewPage"; // Adjust path as needed
 import Reschedule from "./Pages/patient/Reschedule";
 import DReschedule from "./Pages/doctor/DReschedule";
+import PatientProfile from "./Pages/patient/PatientProfile";
 
 import React, { useState } from "react";
 const AppRoutes = () => {
@@ -43,7 +44,7 @@ const AppRoutes = () => {
         {/* Doctor Routes (Protected) */}
         {token && role === "doctor" && (
           <>
-           
+
             <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
             <Route path="/doctor/reschedule/:appointmentId" element={<DReschedule />} />
             <Route path="/doctor/profile" element={<DoctorProfile />} />
@@ -53,13 +54,14 @@ const AppRoutes = () => {
         {/* Patient Routes (Protected) */}
         {token && role === "patient" && (
           <>
-            
+
             <Route path="/patient/dashboard" element={<PatientDashboard />} />
             <Route path="/patient/doctors" element={<DoctorViewing />} />
             <Route path="/patient/booking" element={<Booking formData={formData} setFormData={setFormData} />} />
             <Route path="/patient/slot-selection" element={<SlotSelection formData={formData} setFormData={setFormData} />} />
             <Route path="/patient/reschedule/:appointmentId" element={<Reschedule />} />
             <Route path="/patient/review" element={<ReviewPage />} />
+            <Route path="/patient/profile" element={<PatientProfile />} />
           </>
         )}
       </Routes>
