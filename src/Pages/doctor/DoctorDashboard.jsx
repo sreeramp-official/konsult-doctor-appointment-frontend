@@ -1,4 +1,3 @@
-// src/Pages/doctor/DoctorDashboard.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../../AuthContext";
@@ -18,11 +17,11 @@ const DoctorDashboard = () => {
         // Fetch doctor's details and appointments in parallel
         const [doctorRes, appointmentsRes] = await Promise.all([
           axios.get("http://localhost:5000/api/doctor/details", {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
           }),
           axios.get("http://localhost:5000/api/doctor/appointments", {
-            headers: { Authorization: `Bearer ${token}` }
-          })
+            headers: { Authorization: `Bearer ${token}` },
+          }),
         ]);
 
         setDoctorName(`Dr. ${doctorRes.data.name}`);
@@ -40,7 +39,7 @@ const DoctorDashboard = () => {
 
   const handleReschedule = (appointment) => {
     navigate(`/doctor/reschedule/${appointment.appointment_id}`, {
-      state: { currentAppointment: appointment }
+      state: { currentAppointment: appointment },
     });
   };
 
@@ -49,36 +48,49 @@ const DoctorDashboard = () => {
 
   return (
     <div className="doctor-dashboard">
-      <h1>Welcome, {doctorName}</h1>
-      <h2>Today's Upcoming Appointments</h2>
+      <header className="dashboard-header">
+        <h1>Welcome, {doctorName}</h1>
+        <h2>Today's Upcoming Appointments</h2>
+      </header>
+
       <div className="appointments-container">
         {appointments.length > 0 ? (
           appointments.map((appointment) => (
             <div key={appointment.appointment_id} className="appointment-card">
               <div className="appointment-details">
-                <p><strong>Patient:</strong> {appointment.patient_name}</p>
-                <p><strong>Contact:</strong> {appointment.patient_phone}</p>
                 <p>
-                  <strong>Date:</strong>{" "}
+                  <span className="label">Patient:</span> {appointment.patient_name}
+                </p>
+                <p>
+                  <span className="label">Contact:</span> {appointment.patient_phone}
+                </p>
+                <p>
+                  <span className="label">Date:</span>{" "}
                   {new Date(appointment.appointment_date).toLocaleDateString()}
                 </p>
-                <p><strong>Time:</strong> {appointment.appointment_time}</p>
                 <p>
-                  <strong>Notes:</strong> {appointment.details || "No additional notes"}
+                  <span className="label">Time:</span> {appointment.appointment_time}
+                </p>
+                <p>
+                  <span className="label">Notes:</span>{" "}
+                  {appointment.details || "No additional notes"}
                 </p>
               </div>
               <div className="appointment-actions">
-                <a href={`tel:${appointment.patient_phone}`} className="call-button">
+                <a href={`tel:${appointment.patient_phone}`} className="action-button call-button">
                   Call Patient
                 </a>
-                <button className="action-button" onClick={() => handleReschedule(appointment)}>
+                <button
+                  className="action-button reschedule-button"
+                  onClick={() => handleReschedule(appointment)}
+                >
                   Reschedule
                 </button>
               </div>
             </div>
           ))
         ) : (
-          <p className="no-appointments">No appointments scheduled for today</p>
+          <p className="no-appointments">No appointments scheduled for today.</p>
         )}
       </div>
     </div>
