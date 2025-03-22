@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 const PatientDashboard = () => {
   const [appointments, setAppointments] = useState([]);
@@ -8,8 +9,7 @@ const PatientDashboard = () => {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-
-        const response = await fetch("http://localhost:5000/api/appointments", {
+        const response = await fetch(`${API_URL}/api/appointments`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         const data = await response.json();
@@ -19,15 +19,13 @@ const PatientDashboard = () => {
       }
     };
 
-
-
     fetchAppointments();
   }, []);
 
   const handleCancel = async (appointmentId) => {
     if (window.confirm("Are you sure you want to cancel this appointment?")) {
       try {
-        await fetch(`http://localhost:5000/api/appointments/${appointmentId}`, {
+        await fetch(`${API_URL}/api/appointments/${appointmentId}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
@@ -38,25 +36,25 @@ const PatientDashboard = () => {
     }
   };
 
-  // Pass the entire appointment object as currentAppointment in state.
   const handleReschedule = (appointment) => {
     navigate(`/patient/reschedule/${appointment.appointment_id}`, {
       state: { currentAppointment: appointment }
     });
   };
 
-
   // Format date and time for display.
   const formatDateTime = (dateString, timeString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const date = new Date(dateString).toLocaleDateString(undefined, options);
-    const time = new Date(`1970-01-01T${timeString}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const time = new Date(`1970-01-01T${timeString}`).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
     return `${date} at ${time}`;
   };
 
   return (
     <div className="dashboard-container">
-      {/* Left Side: Upcoming Appointments */}
       <div className="left-half">
         <h2 className="section-title">Upcoming Appointments</h2>
         <div className="appointments-container">
@@ -66,9 +64,7 @@ const PatientDashboard = () => {
                 <h3>{appointment.doctor_name}</h3>
                 <p>Specialization: {appointment.specialization}</p>
                 <p>Status: <strong>{appointment.status}</strong></p>
-                <p>
-                  Date: {formatDateTime(appointment.appointment_date, appointment.appointment_time)}
-                </p>
+                <p>Date: {formatDateTime(appointment.appointment_date, appointment.appointment_time)}</p>
                 <div className="appointment-buttons">
                   <button className="action-button" onClick={() => handleReschedule(appointment)}>
                     Reschedule

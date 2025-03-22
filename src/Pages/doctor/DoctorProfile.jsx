@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import API_URL from "../../config";
 
 const DoctorProfile = () => {
     const [profile, setProfile] = useState({
@@ -22,11 +23,21 @@ const DoctorProfile = () => {
         const fetchProfile = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await axios.get("http://localhost:5000/api/doctor/profile", {
+                const res = await axios.get(`${API_URL}/api/doctor/profile`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                setProfile(res.data);
-                setOriginalProfile(res.data);
+                // Map backend fields to state keys:
+                const fetchedProfile = {
+                    name: res.data.name,
+                    email: res.data.email,
+                    phone_number: res.data.phone_number,
+                    specialization: res.data.specialization,
+                    contactNumber: res.data.doctor_contact, // mapping from doctor_contact
+                    clinicAddress: res.data.clinic_address,  // mapping from clinic_address
+                    rating: res.data.rating,
+                };
+                setProfile(fetchedProfile);
+                setOriginalProfile(fetchedProfile);
                 setLoading(false);
             } catch (err) {
                 setError(err.response?.data?.error || "Failed to fetch profile");
@@ -40,7 +51,7 @@ const DoctorProfile = () => {
     const handleChange = (e) => {
         const updated = { ...profile, [e.target.name]: e.target.value };
         setProfile(updated);
-        // Check if any field has changed from the original profile
+        // Check if any field has changed from original profile
         setIsUpdated(
             Object.keys(updated).some((key) => updated[key] !== originalProfile[key])
         );
@@ -52,7 +63,7 @@ const DoctorProfile = () => {
         setSuccess("");
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.put("http://localhost:5000/api/doctor/profile", profile, {
+            const res = await axios.put(`${API_URL}/api/doctor/profile`, profile, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setOriginalProfile(res.data.profile);
@@ -65,7 +76,7 @@ const DoctorProfile = () => {
     };
 
     if (loading) return <p className="loading">Loading profile...</p>;
-    console.log(profile)
+
     return (
         <div className="doctor-profile-container">
             <h2 className="profile-title">Doctor Profile</h2>
@@ -126,7 +137,7 @@ const DoctorProfile = () => {
                         id="contactNumber"
                         name="contactNumber"
                         type="text"
-                        value={profile.doctor_contact}
+                        value={profile.contactNumber}
                         onChange={handleChange}
                         disabled={!isEditing}
                         required
@@ -138,7 +149,7 @@ const DoctorProfile = () => {
                         id="clinicAddress"
                         name="clinicAddress"
                         type="text"
-                        value={profile.clinic_address}
+                        value={profile.clinicAddress}
                         onChange={handleChange}
                         disabled={!isEditing}
                         required

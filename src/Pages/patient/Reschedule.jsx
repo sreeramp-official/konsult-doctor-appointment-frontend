@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
+import API_URL from "../../config";
 
 const Reschedule = () => {
   const navigate = useNavigate();
   const { appointmentId } = useParams();
   const location = useLocation();
 
-  // Memoize currentAppointment to avoid unnecessary changes in dependencies.
+  // Memoize currentAppointment to avoid unnecessary recalculations.
   const currentAppointment = useMemo(() => {
     return location.state?.currentAppointment || {};
   }, [location.state]);
@@ -21,7 +22,8 @@ const Reschedule = () => {
   const initialDate = hasAppointment
     ? new Date(currentAppointment.appointment_date)
     : new Date();
-    
+
+  // Convert 24-hour time (e.g., "14:00:00") to 12-hour time (e.g., "2:00 PM").
   const convert24To12 = (time24) => {
     const [hours, minutes] = time24.split(":");
     let hourNum = parseInt(hours, 10);
@@ -29,12 +31,11 @@ const Reschedule = () => {
     hourNum = hourNum % 12 || 12;
     return `${hourNum}:${minutes} ${amPm}`;
   };
-  
+
   const initialTime = hasAppointment
     ? convert24To12(currentAppointment.appointment_time)
     : "";
 
-  // Always call hooks unconditionally.
   const [selectedDate, setSelectedDate] = useState(initialDate);
   const [selectedTime, setSelectedTime] = useState(initialTime);
   const [availableSlots, setAvailableSlots] = useState([]);
@@ -49,7 +50,7 @@ const Reschedule = () => {
         const doctorId = currentAppointment.doctor_id;
         const dateString = selectedDate.toISOString().split("T")[0];
         const response = await fetch(
-          `http://localhost:5000/api/available-slot?doctor_id=${doctorId}&date=${dateString}`
+          `${API_URL}/api/available-slot?doctor_id=${doctorId}&date=${dateString}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch available slots");
@@ -78,28 +79,26 @@ const Reschedule = () => {
   const convertTo24HourFormat = (time12h) => {
     const [time, modifier] = time12h.split(" ");
     let [hours, minutes] = time.split(":");
-    if (modifier === "PM" && hours !== "12") hours = parseInt(hours, 10) + 12;
+    if (modifier === "PM" && hours !== "12") hours = (parseInt(hours, 10) + 12).toString();
     if (modifier === "AM" && hours === "12") hours = "00";
     return `${hours.toString().padStart(2, "0")}:${minutes}:00`;
   };
 
   // Confirm reschedule by calling the backend PUT endpoint.
   const handleConfirm = async () => {
-    console.log(appointmentId)
-;    if (!selectedTime) {
+    if (!selectedTime) {
       setError("Please select a time slot.");
       return;
     }
     const newDate = selectedDate.toISOString().split("T")[0];
     const newTime = convertTo24HourFormat(selectedTime);
     try {
-      const response = await fetch(`http://localhost:5000/api/appointments/${appointmentId}`, {
+      const response = await fetch(`${API_URL}/api/appointments/${appointmentId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        // Only newDate and newTime are sent; backend uses appointmentId to look up doctor_id.
         body: JSON.stringify({ newDate, newTime }),
       });
       if (!response.ok) {
@@ -117,7 +116,7 @@ const Reschedule = () => {
       {hasAppointment ? (
         <>
           <h2 className="heading">Reschedule Appointment</h2>
-          
+
           {/* Date Selection */}
           <div className="date-buttons">
             {generateNext7Days().map((date, index) => (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../../AuthContext";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 const DoctorDashboard = () => {
   const [appointments, setAppointments] = useState([]);
@@ -14,12 +15,12 @@ const DoctorDashboard = () => {
   useEffect(() => {
     const fetchDoctorData = async () => {
       try {
-        // Fetch doctor's details and appointments in parallel
+        // Fetch doctor's details and appointments in parallel using the API_URL variable
         const [doctorRes, appointmentsRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/doctor/details", {
+          axios.get(`${API_URL}/api/doctor/details`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get("http://localhost:5000/api/doctor/appointments", {
+          axios.get(`${API_URL}/api/doctor/appointments`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);

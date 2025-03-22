@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../../AuthContext"; // Import auth context for token
+import { useAuth } from "../../AuthContext";
+import API_URL from "../../config";
 
 const Booking = ({ formData, setFormData }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { token } = useAuth(); // Get JWT token
+  const { token } = useAuth();
   const [message, setMessage] = useState("");
 
   // Get doctor id from navigation state and fill the form
@@ -35,7 +36,7 @@ const Booking = ({ formData, setFormData }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/book-appointment", {
+      const response = await fetch(`${API_URL}/api/book-appointment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

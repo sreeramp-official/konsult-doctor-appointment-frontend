@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import API_URL from "../../config";
 
 const PatientProfile = () => {
     const [profile, setProfile] = useState({
@@ -18,7 +19,7 @@ const PatientProfile = () => {
         const fetchProfile = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await axios.get("http://localhost:5000/api/patient/profile", {
+                const res = await axios.get(`${API_URL}/api/patient/profile`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setProfile(res.data);
@@ -34,11 +35,12 @@ const PatientProfile = () => {
     }, []);
 
     const handleChange = (e) => {
-        setProfile({ ...profile, [e.target.name]: e.target.value });
+        const updatedProfile = { ...profile, [e.target.name]: e.target.value };
+        setProfile(updatedProfile);
 
         // Check if any field is changed from original
         setIsUpdated(
-            Object.keys(profile).some((key) => profile[key] !== originalProfile[key])
+            Object.keys(updatedProfile).some((key) => updatedProfile[key] !== originalProfile[key])
         );
     };
 
@@ -49,7 +51,7 @@ const PatientProfile = () => {
 
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.put("http://localhost:5000/api/patient/profile", profile, {
+            const res = await axios.put(`${API_URL}/api/patient/profile`, profile, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

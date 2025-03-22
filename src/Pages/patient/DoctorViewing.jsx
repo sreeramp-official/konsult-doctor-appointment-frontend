@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../../config";
+
 
 const DoctorView = () => {
   const [doctors, setDoctors] = useState([]);
@@ -17,7 +19,7 @@ const DoctorView = () => {
   // API Call: Fetch doctors by name
   const fetchDoctorsByName = async (name) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/doctorview/search?name=${name}`);
+      const response = await fetch(`${API_URL}/api/doctorview/search?name=${name}`);
       const data = await response.json();
       setDoctors(data);
     } catch (error) {
@@ -28,7 +30,7 @@ const DoctorView = () => {
   // API Call: Fetch doctors by specialty
   const fetchDoctorsBySpecialty = async (specialty) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/doctorview/specialty?specialty=${specialty}`);
+      const response = await fetch(`${API_URL}/api/doctorview/specialty?specialty=${specialty}`);
       const data = await response.json();
       setDoctors(data);
     } catch (error) {
@@ -70,14 +72,14 @@ const DoctorView = () => {
                 <p className="doctor-location">{doctor.location}</p>
                 <p className="doctor-rating">Rating: {doctor.rating}</p>
                 <div className="doctor-actions">
-                <button
-                        className="action-button"
-                        onClick={() =>
-                          navigate("/patient/review", { state: { doctor: doctor.user_id } })
-                        }
-                      >
-                        Review
-                </button>
+                  <button
+                    className="action-button"
+                    onClick={() =>
+                      navigate("/patient/review", { state: { doctor: doctor.user_id } })
+                    }
+                  >
+                    Review
+                  </button>
 
                   <button
                     className="action-button"
