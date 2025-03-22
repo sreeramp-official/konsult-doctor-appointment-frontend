@@ -28,6 +28,7 @@ body {
 .auth-form h2 {
   text-align: center;
   color: #333;
+  margin: 1em;
 }
 
 .auth-form input,
@@ -52,6 +53,7 @@ body {
 .auth-btn {
   width: 100%;
   padding: 12px;
+  margin-bottom: 1em;
   background: #28a745;
   color: white;
   border: none;
