@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../../config";
 import "./Auth.css";
 
 function ResetPasswordPage() {
@@ -18,7 +19,7 @@ function ResetPasswordPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/send-otp", { email });
+      const response = await axios.post(`${API_URL}/api/send-otp`, { email });
       if (response.status === 200) {
         setStep(2);
         setSuccess("OTP sent to your email!");
@@ -36,7 +37,7 @@ function ResetPasswordPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/verify-otp", {
+      const response = await axios.post(`${API_URL}/api/verify-otp`, {
         email,
         otp
       });
@@ -62,7 +63,7 @@ function ResetPasswordPage() {
 
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/reset-password", {
+      const response = await axios.post(`${API_URL}/api/reset-password`, {
         email,
         otp,
         newPassword

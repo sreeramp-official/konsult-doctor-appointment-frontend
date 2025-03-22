@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../../config"
 import "./Auth.css";
 
 function RegisterPage() {
@@ -31,7 +32,7 @@ function RegisterPage() {
 
     try {
       // Register the user
-      const userResponse = await axios.post("http://localhost:5000/api/register", {
+      const userResponse = await axios.post(`${API_URL}/api/register`, {
         name,
         email,
         phone_number: phone,
@@ -41,7 +42,7 @@ function RegisterPage() {
 
       // If doctor, register additional details
       if (selectedRole === "doctor") {
-        await axios.post("http://localhost:5000/api/register/doctor", {
+        await axios.post(`${API_URL}/api/register/doctor`, {
           userId: userResponse.data.userId,
           specialization,
           contactNumber,
