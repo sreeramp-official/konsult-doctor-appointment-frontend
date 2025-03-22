@@ -29,6 +29,15 @@ const Booking = ({ formData, setFormData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
+
+    // Debug log: check the values being sent
+    console.log("Booking Request Payload:", {
+      doctor: formData.doctor,
+      date: formData.date,
+      time: formData.time,
+      details: formData.detail,
+    });
 
     if (!token) {
       setMessage("Unauthorized: Please log in to book an appointment.");
@@ -51,13 +60,17 @@ const Booking = ({ formData, setFormData }) => {
       });
 
       const data = await response.json();
+      console.log("Booking API Response:", data);
+
       if (response.ok) {
         setMessage("Appointment booked successfully!");
+        // Clear form fields after successful booking
         setFormData({ email: "", fullName: "", doctor: "", date: "", time: "", detail: "" });
       } else {
         setMessage(data.error || "Failed to book appointment.");
       }
     } catch (error) {
+      console.error("Error during booking:", error);
       setMessage("Error booking appointment.");
     }
   };
