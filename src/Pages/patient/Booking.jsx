@@ -31,13 +31,13 @@ const Booking = ({ formData, setFormData }) => {
     e.preventDefault();
     setMessage("");
 
-    // Debug log: check the values being sent
-    console.log("Booking Request Payload:", {
-      doctor: formData.doctor,
-      date: formData.date,
-      time: formData.time,
-      details: formData.detail,
-    });
+    // // Debug log: check the values being sent
+    // console.log("Booking Request Payload:", {
+    //   doctor: formData.doctor,
+    //   date: formData.date,
+    //   time: formData.time,
+    //   details: formData.detail,
+    // });
 
     if (!token) {
       setMessage("Unauthorized: Please log in to book an appointment.");
