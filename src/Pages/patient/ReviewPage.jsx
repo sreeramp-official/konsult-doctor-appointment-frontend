@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 const ReviewPage = () => {
   const location = useLocation();
@@ -15,18 +16,16 @@ const ReviewPage = () => {
       setMessage("No doctor selected.");
       return;
     }
-  
+
     const reviewData = {
-      doctorId,  // ✅ Use doctorId (matches backend)
+      doctorId, // use doctorId (matches backend)
       rating: Number(rating),
       comment,
     };
-  
-    console.log("Submitting review data:", reviewData);
-  
+
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/reviews", {
+      const response = await fetch(`${API_URL}/api/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,10 +33,9 @@ const ReviewPage = () => {
         },
         body: JSON.stringify(reviewData),
       });
-  
+
       const data = await response.json();
-      console.log("Response from server:", data);
-  
+
       if (response.ok) {
         setMessage("✅ Review submitted successfully!");
       } else {
@@ -47,9 +45,6 @@ const ReviewPage = () => {
       setMessage("❌ Error submitting review.");
     }
   };
-  
-  
-  
 
   return (
     <div className="review-page">

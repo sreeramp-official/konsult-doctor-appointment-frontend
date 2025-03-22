@@ -669,6 +669,7 @@ body {
 
 /* Review Page Starts */
 .review-page {
+  width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -733,12 +734,13 @@ body {
   background-color: #E4FDE1;
   color: #0D3A4E;
   padding: 10px;
-  border: none;
+  margin-top: 15px;
   border-radius: 8px;
   width: 100%;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
+  border: none;
 }
 
 .review-button:hover {
@@ -770,6 +772,27 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .review-container {
+    width: 90%;
+    padding: 20px;
+  }
+  .review-container h2 {
+    font-size: 20px;
+  }
+  .input-group input,
+  .input-group textarea {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+  .review-button,
+  .back-button {
+    font-size: 0.9rem;
+    padding: 8px;
   }
 }
 
