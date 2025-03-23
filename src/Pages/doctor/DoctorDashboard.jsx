@@ -15,7 +15,7 @@ const DoctorDashboard = () => {
   useEffect(() => {
     const fetchDoctorData = async () => {
       try {
-        // Fetch doctor's details and appointments in parallel using the API_URL variable
+        // Fetch doctor's details and appointments in parallel
         const [doctorRes, appointmentsRes] = await Promise.all([
           axios.get(`${API_URL}/api/doctor/details`, {
             headers: { Authorization: `Bearer ${token}` },
@@ -42,6 +42,28 @@ const DoctorDashboard = () => {
     navigate(`/doctor/reschedule/${appointment.appointment_id}`, {
       state: { currentAppointment: appointment },
     });
+  };
+
+  // New function to mark an appointment as completed
+  const handleComplete = async (appointmentId) => {
+    try {
+      const response = await axios.put(
+        `${API_URL}/api/doctor/appointments/complete/${appointmentId}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      // Update UI by filtering out or updating the completed appointment
+      setAppointments((prev) =>
+        prev.map((appt) =>
+          appt.appointment_id === appointmentId ? response.data.appointment : appt
+        )
+      );
+    } catch (err) {
+      console.error("Error marking appointment as completed:", err);
+      alert(err.response?.data?.error || "Failed to mark appointment as completed");
+    }
   };
 
   if (loading) return <div className="loading">Loading...</div>;
@@ -76,17 +98,25 @@ const DoctorDashboard = () => {
                   <span className="label">Notes:</span>{" "}
                   {appointment.details || "No additional notes"}
                 </p>
+                <p>
+                  <span className="label">Status:</span> {appointment.status}
+                </p>
               </div>
               <div className="appointment-actions">
                 <a href={`tel:${appointment.patient_phone}`} className="action-button call-button">
                   Call Patient
                 </a>
-                <button
-                  className="action-button reschedule-button"
-                  onClick={() => handleReschedule(appointment)}
-                >
+                <button className="action-button reschedule-button" onClick={() => handleReschedule(appointment)}>
                   Reschedule
                 </button>
+                {appointment.status !== "completed" && (
+                  <button
+                    className="action-button complete-button"
+                    onClick={() => handleComplete(appointment.appointment_id)}
+                  >
+                    Complete Consultation
+                  </button>
+                )}
               </div>
             </div>
           ))

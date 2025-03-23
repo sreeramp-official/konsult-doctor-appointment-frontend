@@ -1297,6 +1297,22 @@ body {
   color: #114b5f;
 }
 
+.complete-button {
+  background-color: #32CD32; /* Lime green */
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.complete-button:hover {
+  background-color: #28a428; /* Darker shade on hover */
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .dashboard-header h1 {
