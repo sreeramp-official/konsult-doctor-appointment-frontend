@@ -39,7 +39,7 @@ const DoctorViewing = () => {
     }
   }, [sortDoctorsAlphabetically]);
 
-  // API Call: Fetch distinct specialties (memoized)
+  // API Call: Fetch top 7 specialties (memoized)
   const fetchSpecialties = useCallback(async () => {
     try {
       const response = await fetch(`${API_URL}/api/doctorview/specialties`);
