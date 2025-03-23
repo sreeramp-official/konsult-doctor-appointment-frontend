@@ -17,8 +17,7 @@ import ReviewPage from "./Pages/patient/ReviewPage"; // Adjust path as needed
 import Reschedule from "./Pages/patient/Reschedule";
 import DReschedule from "./Pages/doctor/DReschedule";
 import PatientProfile from "./Pages/patient/PatientProfile";
-import AppointmentHistory from "./Pages/AppointmentHistory"; // New component for appointment history
-
+import AppointmentHistory from "./AppointmentHistory";
 import React, { useState } from "react";
 
 const AppRoutes = () => {
