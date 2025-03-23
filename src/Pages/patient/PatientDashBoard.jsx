@@ -80,9 +80,9 @@ const PatientDashboard = () => {
             <p>No upcoming appointments.</p>
           )}
         </div>
-      </div>
-      <div>
-        <NavLink to="/patient/history" className="action-button">History</NavLink>
+        <p>Check your appointment history here:
+          <NavLink to="/patient/history" className="action-button">History</NavLink>
+        </p>
       </div>
     </div>
   );
