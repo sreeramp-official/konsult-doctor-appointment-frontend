@@ -111,7 +111,7 @@ const DoctorDashboard = () => {
                 </button>
                 {appointment.status !== "completed" && (
                   <button
-                    className="action-button complete-button"
+                    className="action-button call-button"
                     onClick={() => handleComplete(appointment.appointment_id)}
                   >
                     Complete Consultation
