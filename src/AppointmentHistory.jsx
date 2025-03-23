@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
-import API_URL from "../../config";
+import API_URL from "./config";
 
 const AppointmentHistory = () => {
     const { token, role } = useAuth();
