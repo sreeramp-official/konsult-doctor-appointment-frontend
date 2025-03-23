@@ -25,7 +25,7 @@ const DoctorDashboard = () => {
           }),
         ]);
 
-        setDoctorName(`Dr. ${doctorRes.data.name}`);
+        setDoctorName(`${doctorRes.data.name}`);
         setAppointments(appointmentsRes.data);
         setLoading(false);
       } catch (err) {
