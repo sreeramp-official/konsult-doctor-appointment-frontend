@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import API_URL from "../../config";
+import { useAuth } from "../../AuthContext";
 
 const DoctorProfile = () => {
     const [profile, setProfile] = useState({
@@ -18,22 +19,23 @@ const DoctorProfile = () => {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [isUpdated, setIsUpdated] = useState(false);
+    const [showDeleteAccordion, setShowDeleteAccordion] = useState(false);
+    const { token, logout } = useAuth();
 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const token = localStorage.getItem("token");
                 const res = await axios.get(`${API_URL}/api/doctor/profile`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                // Map backend fields to state keys:
+                // Map backend fields to local state
                 const fetchedProfile = {
                     name: res.data.name,
                     email: res.data.email,
                     phone_number: res.data.phone_number,
                     specialization: res.data.specialization,
-                    contactNumber: res.data.doctor_contact, // mapping from doctor_contact
-                    clinicAddress: res.data.clinic_address,  // mapping from clinic_address
+                    contactNumber: res.data.doctor_contact, // backend field
+                    clinicAddress: res.data.clinic_address,  // backend field
                     rating: res.data.rating,
                 };
                 setProfile(fetchedProfile);
@@ -46,12 +48,12 @@ const DoctorProfile = () => {
         };
 
         fetchProfile();
-    }, []);
+    }, [token]);
 
     const handleChange = (e) => {
         const updated = { ...profile, [e.target.name]: e.target.value };
         setProfile(updated);
-        // Check if any field has changed from original profile
+        // Check if any field has changed from original
         setIsUpdated(
             Object.keys(updated).some((key) => updated[key] !== originalProfile[key])
         );
@@ -62,7 +64,6 @@ const DoctorProfile = () => {
         setError("");
         setSuccess("");
         try {
-            const token = localStorage.getItem("token");
             const res = await axios.put(`${API_URL}/api/doctor/profile`, profile, {
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -72,6 +73,22 @@ const DoctorProfile = () => {
             setIsEditing(false);
         } catch (err) {
             setError(err.response?.data?.error || "Failed to update profile");
+        }
+    };
+
+    // Handler for deleting the doctor account
+    const handleDeleteAccount = async () => {
+        if (window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+            try {
+                await axios.delete(`${API_URL}/api/doctor/profile`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                setSuccess("Account deleted successfully.");
+                // Logout the user after deletion
+                logout();
+            } catch (err) {
+                setError(err.response?.data?.error || "Failed to delete account");
+            }
         }
     };
 
@@ -183,6 +200,23 @@ const DoctorProfile = () => {
                     </button>
                 </div>
             </form>
+
+            {/* Accordion for Account Deletion */}
+            <div className="delete-accordion">
+                <button
+                    className="accordion-toggle"
+                    onClick={() => setShowDeleteAccordion(!showDeleteAccordion)}
+                >
+                    {showDeleteAccordion ? "▲" : "▼"}
+                </button>
+                {showDeleteAccordion && (
+                    <div className="delete-section">
+                        <button className="delete-button" onClick={handleDeleteAccount}>
+                            Delete Account
+                        </button>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

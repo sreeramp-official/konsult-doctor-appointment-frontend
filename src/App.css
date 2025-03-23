@@ -1114,6 +1114,41 @@ body {
   margin-top: 2rem;
 }
 
+.delete-accordion {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.accordion-toggle {
+  background: none;
+  border: none;
+  font-size: 0.5rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.delete-section {
+  margin-top: 1rem;
+}
+
+.delete-button {
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 0.75rem;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #e60000;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 640px) {
   .doctor-profile-container {
@@ -1130,6 +1165,10 @@ body {
   .edit-button, .update-button {
     font-size: 0.9rem;
     padding: 0.5rem 0.75rem;
+  }
+  .doctor-profile-container {
+    margin: 1rem;
+    padding: 1rem;
   }
 }
 
