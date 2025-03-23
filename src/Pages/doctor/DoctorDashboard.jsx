@@ -44,21 +44,19 @@ const DoctorDashboard = () => {
     });
   };
 
-  // New function to mark an appointment as completed
+  // New function to mark an appointment as completed and remove it from dashboard
   const handleComplete = async (appointmentId) => {
     try {
-      const response = await axios.put(
+      await axios.put(
         `${API_URL}/api/doctor/appointments/complete/${appointmentId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // Update UI by filtering out or updating the completed appointment
+      // Remove the completed appointment from the state
       setAppointments((prev) =>
-        prev.map((appt) =>
-          appt.appointment_id === appointmentId ? response.data.appointment : appt
-        )
+        prev.filter((appt) => appt.appointment_id !== appointmentId)
       );
     } catch (err) {
       console.error("Error marking appointment as completed:", err);
@@ -106,12 +104,15 @@ const DoctorDashboard = () => {
                 <a href={`tel:${appointment.patient_phone}`} className="action-button call-button">
                   Call Patient
                 </a>
-                <button className="action-button reschedule-button" onClick={() => handleReschedule(appointment)}>
+                <button
+                  className="action-button reschedule-button"
+                  onClick={() => handleReschedule(appointment)}
+                >
                   Reschedule
                 </button>
                 {appointment.status !== "completed" && (
                   <button
-                    className="action-button call-button"
+                    className="action-button complete-button"
                     onClick={() => handleComplete(appointment.appointment_id)}
                   >
                     Complete Consultation
