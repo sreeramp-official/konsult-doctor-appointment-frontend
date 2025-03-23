@@ -407,9 +407,8 @@ body {
 
   .doctor-cards {
     width: 100%;
-    grid-template-columns: repeat(2, 1fr);
   }
-
+  
   .specialty-buttons {
     flex-direction: row;
     flex-wrap: wrap;
@@ -422,6 +421,14 @@ body {
     padding: 10px;
     width: auto;
   }
+}
+
+/* Responsive styles for tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  
+  .doctor-location {
+    font-size: 12px;
+    }
 }
 
 /* Responsive styles for mobile (max-width: 480px) */
