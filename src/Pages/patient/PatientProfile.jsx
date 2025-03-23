@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import API_URL from "../../config";
+import { useAuth } from "../../AuthContext";
 
 const PatientProfile = () => {
     const [profile, setProfile] = useState({
@@ -14,11 +15,12 @@ const PatientProfile = () => {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [isUpdated, setIsUpdated] = useState(false);
+    const [showDeleteSection, setShowDeleteSection] = useState(false);
+    const { token, logout } = useAuth(); // Ensure your AuthContext provides a logout method
 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const token = localStorage.getItem("token");
                 const res = await axios.get(`${API_URL}/api/patient/profile`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
@@ -32,13 +34,12 @@ const PatientProfile = () => {
         };
 
         fetchProfile();
-    }, []);
+    }, [token]);
 
     const handleChange = (e) => {
         const updatedProfile = { ...profile, [e.target.name]: e.target.value };
         setProfile(updatedProfile);
-
-        // Check if any field is changed from original
+        // Check if any field has changed from original profile
         setIsUpdated(
             Object.keys(updatedProfile).some((key) => updatedProfile[key] !== originalProfile[key])
         );
@@ -48,19 +49,32 @@ const PatientProfile = () => {
         e.preventDefault();
         setError("");
         setSuccess("");
-
         try {
-            const token = localStorage.getItem("token");
             const res = await axios.put(`${API_URL}/api/patient/profile`, profile, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-
-            setOriginalProfile(profile); // Update original profile state
+            setOriginalProfile(profile);
             setSuccess(res.data.message || "Profile updated successfully");
             setIsUpdated(false);
             setIsEditing(false);
         } catch (err) {
             setError(err.response?.data?.error || "Failed to update profile");
+        }
+    };
+
+    // Handler for deleting account
+    const handleDeleteAccount = async () => {
+        if (window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+            try {
+                const res = await axios.delete(`${API_URL}/api/patient/profile`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                setSuccess(res.data.message || "Account deleted successfully");
+                // Log out the user after deletion
+                logout();
+            } catch (err) {
+                setError(err.response?.data?.error || "Failed to delete account");
+            }
         }
     };
 
@@ -126,6 +140,23 @@ const PatientProfile = () => {
                     </button>
                 </div>
             </form>
+
+            {/* Accordion for Account Deletion */}
+            <div className="delete-accordion">
+                <button
+                    className="accordion-toggle"
+                    onClick={() => setShowDeleteSection(!showDeleteSection)}
+                >
+                    {showDeleteSection ? "▲" : "▼"}
+                </button>
+                {showDeleteSection && (
+                    <div className="delete-section">
+                        <button className="delete-button" onClick={handleDeleteAccount}>
+                            Delete Account
+                        </button>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
