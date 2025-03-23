@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../../config";
 
@@ -79,6 +80,9 @@ const PatientDashboard = () => {
             <p>No upcoming appointments.</p>
           )}
         </div>
+      </div>
+      <div>
+        <NavLink to="/patient/history" className="action-button">History</NavLink>
       </div>
     </div>
   );

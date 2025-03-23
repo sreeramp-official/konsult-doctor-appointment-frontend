@@ -17,6 +17,10 @@ const AppointmentHistory = () => {
                     endpoint = `${API_URL}/api/doctor/appointments/history`;
                 } else if (role === "patient") {
                     endpoint = `${API_URL}/api/patient/appointments/history`;
+                } else {
+                    setError("User role not found.");
+                    setLoading(false);
+                    return;
                 }
                 const res = await axios.get(endpoint, {
                     headers: { Authorization: `Bearer ${token}` },
@@ -29,7 +33,12 @@ const AppointmentHistory = () => {
             }
         };
 
-        if (token && role) fetchHistory();
+        if (token && role) {
+            fetchHistory();
+        } else {
+            setError("User not authenticated.");
+            setLoading(false);
+        }
     }, [token, role]);
 
     if (loading) return <div className="loading">Loading appointment history...</div>;
@@ -55,14 +64,22 @@ const AppointmentHistory = () => {
                     <tbody>
                         {appointments.map((appt) => (
                             <tr key={appt.appointment_id}>
-                                <td>{appt.appointment_id}</td>
-                                <td>{new Date(appt.appointment_date).toLocaleDateString()}</td>
-                                <td>{appt.appointment_time}</td>
-                                <td>{appt.status}</td>
-                                <td>{appt.details || "N/A"}</td>
-                                {role === "doctor" && <td>{appt.patient_phone}</td>}
-                                {role === "doctor" && <td>{appt.patient_name}</td>}
-                                {role === "patient" && <td>{appt.doctor_name}</td>}
+                                <td data-label="Appointment ID">{appt.appointment_id}</td>
+                                <td data-label="Date">
+                                    {new Date(appt.appointment_date).toLocaleDateString()}
+                                </td>
+                                <td data-label="Time">{appt.appointment_time}</td>
+                                <td data-label="Status">{appt.status}</td>
+                                <td data-label="Details">{appt.details || "N/A"}</td>
+                                {role === "doctor" && (
+                                    <td data-label="Patient Contact">{appt.patient_phone}</td>
+                                )}
+                                {role === "doctor" && (
+                                    <td data-label="Patient Name">{appt.patient_name}</td>
+                                )}
+                                {role === "patient" && (
+                                    <td data-label="Doctor Name">{appt.doctor_name}</td>
+                                )}
                             </tr>
                         ))}
                     </tbody>
