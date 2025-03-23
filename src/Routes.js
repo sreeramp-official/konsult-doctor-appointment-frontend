@@ -13,13 +13,13 @@ import PatientDashboard from "./Pages/patient/PatientDashBoard";
 import DoctorViewing from "./Pages/patient/DoctorViewing";
 import Booking from "./Pages/patient/Booking";
 import LandingPage from "./Pages/LandingPage";
-import ReviewPage from "./Pages/patient/ReviewPage"; // Adjust path as needed
+import ReviewPage from "./Pages/patient/ReviewPage";
 import Reschedule from "./Pages/patient/Reschedule";
 import DReschedule from "./Pages/doctor/DReschedule";
 import PatientProfile from "./Pages/patient/PatientProfile";
 import AppointmentHistory from "./AppointmentHistory";
-import React, { useState } from "react";
 
+import React, { useState } from "react";
 const AppRoutes = () => {
   const { token, role } = useAuth(); // Get user authentication status
   const [formData, setFormData] = useState({
@@ -30,10 +30,9 @@ const AppRoutes = () => {
     time: "",
     detail: "",
   });
-
   return (
     <>
-      {/* Navbar changes based on authentication */}
+      {/* ✅ Navbar should change based on authentication */}
       {!token ? <NavbarAuth /> : role === "doctor" ? <NavbarDoctor /> : <NavbarPatient />}
 
       <Routes>
@@ -46,6 +45,7 @@ const AppRoutes = () => {
         {/* Doctor Routes (Protected) */}
         {token && role === "doctor" && (
           <>
+
             <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
             <Route path="/doctor/reschedule/:appointmentId" element={<DReschedule />} />
             <Route path="/doctor/profile" element={<DoctorProfile />} />
@@ -56,6 +56,7 @@ const AppRoutes = () => {
         {/* Patient Routes (Protected) */}
         {token && role === "patient" && (
           <>
+
             <Route path="/patient/dashboard" element={<PatientDashboard />} />
             <Route path="/patient/doctors" element={<DoctorViewing />} />
             <Route path="/patient/booking" element={<Booking formData={formData} setFormData={setFormData} />} />
