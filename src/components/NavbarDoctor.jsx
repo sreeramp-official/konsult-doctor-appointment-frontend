@@ -8,14 +8,15 @@ const NavbarDoctor = () => {
 
   return (
     <div>
-    <nav className="navbar">
-      <div className="nav-links">
-        <NavLink to="/doctor/dashboard" className="nav-button">Home</NavLink>
-        <NavLink to="/doctor/profile" className="nav-button">Profile</NavLink>
-      </div>
-    </nav>
-       {/* Logout Button Outside Navbar */}
-       <LogoutButton />  
+      <nav className="navbar">
+        <div className="nav-links">
+          <NavLink to="/doctor/dashboard" className="nav-button">Home</NavLink>
+          <NavLink to="/doctor/profile" className="nav-button">Profile</NavLink>
+          <NavLink to="/doctor/history" className="nav-button">History</NavLink>
+        </div>
+      </nav>
+      {/* Logout Button Outside Navbar */}
+      <LogoutButton />
     </div>
   );
 };

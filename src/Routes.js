@@ -17,8 +17,10 @@ import ReviewPage from "./Pages/patient/ReviewPage"; // Adjust path as needed
 import Reschedule from "./Pages/patient/Reschedule";
 import DReschedule from "./Pages/doctor/DReschedule";
 import PatientProfile from "./Pages/patient/PatientProfile";
+import AppointmentHistory from "./Pages/AppointmentHistory"; // New component for appointment history
 
 import React, { useState } from "react";
+
 const AppRoutes = () => {
   const { token, role } = useAuth(); // Get user authentication status
   const [formData, setFormData] = useState({
@@ -29,9 +31,10 @@ const AppRoutes = () => {
     time: "",
     detail: "",
   });
+
   return (
     <>
-      {/* ✅ Navbar should change based on authentication */}
+      {/* Navbar changes based on authentication */}
       {!token ? <NavbarAuth /> : role === "doctor" ? <NavbarDoctor /> : <NavbarPatient />}
 
       <Routes>
@@ -44,17 +47,16 @@ const AppRoutes = () => {
         {/* Doctor Routes (Protected) */}
         {token && role === "doctor" && (
           <>
-
             <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
             <Route path="/doctor/reschedule/:appointmentId" element={<DReschedule />} />
             <Route path="/doctor/profile" element={<DoctorProfile />} />
+            <Route path="/doctor/history" element={<AppointmentHistory />} />
           </>
         )}
 
         {/* Patient Routes (Protected) */}
         {token && role === "patient" && (
           <>
-
             <Route path="/patient/dashboard" element={<PatientDashboard />} />
             <Route path="/patient/doctors" element={<DoctorViewing />} />
             <Route path="/patient/booking" element={<Booking formData={formData} setFormData={setFormData} />} />
@@ -62,6 +64,7 @@ const AppRoutes = () => {
             <Route path="/patient/reschedule/:appointmentId" element={<Reschedule />} />
             <Route path="/patient/review" element={<ReviewPage />} />
             <Route path="/patient/profile" element={<PatientProfile />} />
+            <Route path="/patient/history" element={<AppointmentHistory />} />
           </>
         )}
       </Routes>

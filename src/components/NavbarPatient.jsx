@@ -10,6 +10,7 @@ const NavbarPatient = () => {
         <div className="nav-links">
           <NavLink to="/patient/dashboard" className="nav-button">Home</NavLink>
           <NavLink to="/patient/doctors" className="nav-button">Doctors</NavLink>
+          <NavLink to="/patient/history" className="nav-button">History</NavLink>
           <NavLink to="/patient/profile" className="nav-button">Profile</NavLink>
         </div>
       </nav>
