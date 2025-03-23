@@ -117,7 +117,7 @@ function ResetPasswordPage() {
               required
               disabled={loading}
             />
-            <button type="submit" disabled={loading}>
+            <button type="submit" className="auth-btn" disabled={loading}>
               {loading ? "Verifying..." : "Verify OTP"}
             </button>
           </>
@@ -141,7 +141,7 @@ function ResetPasswordPage() {
               required
               disabled={loading}
             />
-            <button type="submit" disabled={loading}>
+            <button type="submit" className="auth-btn" disabled={loading}>
               {loading ? "Updating..." : "Update Password"}
             </button>
           </>
