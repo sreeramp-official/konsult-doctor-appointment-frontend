@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
 import API_URL from "../../config";
+import "./Patient.css"
 
 const Booking = ({ formData, setFormData }) => {
   const navigate = useNavigate();
