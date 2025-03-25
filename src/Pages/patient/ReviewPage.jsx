@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import API_URL from "../../config";
+import "./Patient.css"
 
 const ReviewPage = () => {
   const location = useLocation();
