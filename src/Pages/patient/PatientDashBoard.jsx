@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../../config";
+import "./Patient.css"
 
 const PatientDashboard = () => {
   const [appointments, setAppointments] = useState([]);
@@ -64,13 +65,27 @@ const PatientDashboard = () => {
               <div key={appointment.appointment_id} className="appointment-card">
                 <h3>{appointment.doctor_name}</h3>
                 <p>Specialization: {appointment.specialization}</p>
-                <p>Status: <strong>{appointment.status}</strong></p>
-                <p>Date: {formatDateTime(appointment.appointment_date, appointment.appointment_time)}</p>
+                <p>
+                  Status: <strong>{appointment.status}</strong>
+                </p>
+                <p>
+                  Date:{" "}
+                  {formatDateTime(
+                    appointment.appointment_date,
+                    appointment.appointment_time
+                  )}
+                </p>
                 <div className="appointment-buttons">
-                  <button className="action-button" onClick={() => handleReschedule(appointment)}>
+                  <button
+                    className="action-button"
+                    onClick={() => handleReschedule(appointment)}
+                  >
                     Reschedule
                   </button>
-                  <button className="action-button" onClick={() => handleCancel(appointment.appointment_id)}>
+                  <button
+                    className="action-button"
+                    onClick={() => handleCancel(appointment.appointment_id)}
+                  >
                     Cancel
                   </button>
                 </div>
@@ -79,12 +94,13 @@ const PatientDashboard = () => {
           ) : (
             <p>No upcoming appointments.</p>
           )}
-          <p>Check your appointment history here:
-            <NavLink to="/patient/history" className="action-button">History</NavLink>
-          </p>
+          <NavLink to="/patient/history" className="action-button">
+            History
+          </NavLink>
         </div>
       </div>
     </div>
+
   );
 };
 
