@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import API_URL from "../../config";
 import { useAuth } from "../../AuthContext";
+import "./Patient.css"
 
 const PatientProfile = () => {
     const [profile, setProfile] = useState({
