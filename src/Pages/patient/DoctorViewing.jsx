@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../../config";
+import "./Patient.css"
 
 const DoctorViewing = () => {
   const [doctors, setDoctors] = useState([]);
