@@ -16,8 +16,8 @@ Check out the live version here: [konsult-68bf.onrender.com](https://konsult-68b
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/konsult-frontend.git
-   cd konsult-frontend
+   git@github.com:sreeramp-official/konsult-doctor-appointment-frontend.git
+   cd konsult-doctor-appointment-frontend
    ```
 
 2. Install dependencies:
@@ -27,7 +27,7 @@ Check out the live version here: [konsult-68bf.onrender.com](https://konsult-68b
 
 3. Start the development server:
    ```bash
-   npm run dev
+   npm start
    ```
 
 The app should now be running at [http://localhost:5173](http://localhost:5173) (or similar).
